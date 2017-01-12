@@ -1,0 +1,17 @@
+AdvancedHTMLParser==6.6.4
+aenum==1.4.5
+click==6.7
+Flask==0.12
+html5lib==0.999999999
+htmldom==2.0
+itsdangerous==0.24
+Jinja2==2.9.2
+lxml==3.7.1
+MarkupSafe==0.23
+numpy==1.11.3
+requests==2.12.4
+scrapely==0.13.2
+six==1.10.0
+w3lib==1.16.0
+webencodings==0.5
+Werkzeug==0.11.15

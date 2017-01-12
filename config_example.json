@@ -1,0 +1,8 @@
+{
+  "delivery_scraper_password" : "password",
+  "update_url": "http://127.0.0.1:8123/api/services/tts/google_say?api_password=password",
+  "Caviar" : {
+    "username" : "usernameoremail",
+    "password" : "caviarpassword"
+  }
+}
