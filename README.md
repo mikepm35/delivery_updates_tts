@@ -11,12 +11,12 @@ Note: Make sure to properly using NAT'd IPs, WAN IPs, and port forwarding depend
 
 # Example
 This example uses Google Home + IFTTT/Maker + Home Assistant
-1. Start Home Assistant
-2. Configure delivery_updates_tts
+* Start Home Assistant
+* Configure delivery_updates_tts
   * Set service password
   * Set "update_url" to the google_say endpoint from Home Assistant
   * Add Caviar credentials
-3. Create a new IFTTT applet
+* Create a new IFTTT applet
   * "This" = Google Assistant for "Say Phrase with a text ingredient" as "Where is my $ order?"
   * "That" = Maker web request
     * URL = "http://Service_IP:5035/api/getstatus?password=your_password"
@@ -26,9 +26,9 @@ This example uses Google Home + IFTTT/Maker + Home Assistant
     * Content type = "application/json"
     * Body = "{"service": "{{TextField}}"}"
       * TextField = The ingredient from Google Assistant
-4. Start delivery_updates_tts
-5. Ask Google Home "Where is my Caviar order?"
-6. Google Home responds with the update from Caviar
+* Start delivery_updates_tts
+* Ask Google Home "Where is my Caviar order?"
+* Google Home responds with the update from Caviar
 
 # Limitations
 * Only supported delivery service is Caviar
