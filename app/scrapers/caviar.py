@@ -11,7 +11,7 @@ handler = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 handler.setFormatter(formatter)
 _logger.addHandler(handler)
-_logger.setLevel(logging.DEBUG)
+_logger.setLevel(logging.INFO)
 
 def caviar_sign_in(order):
     order_html = order.session.get('https://www.trycaviar.com/users/sign_in')
@@ -43,6 +43,7 @@ def caviar_sign_in(order):
 
 
 def caviar_get_html(order, endpoint):
+    _logger.info("Calling caviar endpoint: %s", endpoint)
     order_html = order.session.get('https://www.trycaviar.com'+endpoint)
     _logger.debug("Headers: %s", order_html.headers)
     _logger.info("Order page retrieved: %s", order_html.status_code)

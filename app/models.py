@@ -37,7 +37,8 @@ class Order():
         if self.service == Services.caviar.value:
             order_id = caviar.caviar_get_order(order=self)
             if not order_id:
-                _logger.error("Order ID is empty")
+                _logger.warning("Order ID is empty, resetting status to empty")
+                self.general_status = GeneralStatus.empty.value
             self.order_id = order_id
             self.lastupdate = now
 
@@ -46,8 +47,13 @@ class Order():
     def update_status(self):
         now = datetime.now()
         if self.service == Services.caviar.value:
-            status_text = caviar.caviar_update_status(order=self)
-            self.status_text = status_text
-            self.lastupdate = now
+            if self.order_id:
+                status_text = caviar.caviar_update_status(order=self)
+                self.status_text = status_text
+                self.lastupdate = now
+            else:
+                _logger.warning("Order ID is empty so service call is cancelled")
+                self.status_text = TTSResponses.no_recent_order.value
+                self.lastupdate = now
 
         return

@@ -22,6 +22,7 @@ class TTSResponses(Enum):
     internal_error = "Sorry, there was an internal error processing the request."
     order_parse_error = 'Sorry, there was an error getting your order information.'
     no_service_match = "Sorry, your request does not match a supported service."
+    no_recent_order = "Sorry, I was not able to find a recent order"
 
 def check_inputs(delivery_scraper_password, service_input):
     #process password

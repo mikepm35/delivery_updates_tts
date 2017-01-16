@@ -13,7 +13,7 @@ handler = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 handler.setFormatter(formatter)
 _logger.addHandler(handler)
-_logger.setLevel(logging.DEBUG)
+_logger.setLevel(logging.INFO)
 
 openOrder = Order(opendatetime=datetime.now(), lastupdate=datetime.now(),
                     service="", username="", password="", status_text="",
