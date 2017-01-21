@@ -79,13 +79,13 @@ def caviar_get_order(order):
         _logger.error("HTML order response tree is empty")
         return ""
 
-    element_list = tree.xpath('//li[@class="order_information_list-item"]/text()')
+    element_list = tree.xpath('//li[@class="order-history_orders_content-body-column order-history_orders_content-column"]/text()')
     try:
         recent_datestr = element_list[0]
     except:
         _logger.warning('Not able to parse any order list items, returning empty order_id')
         return ""
-        
+
     recent_datetime = datetime.strptime(recent_datestr, '%m/%d/%y %I:%M%p')
     _logger.debug('Most recent order datetime: %s', recent_datetime)
 
@@ -97,8 +97,12 @@ def caviar_get_order(order):
         _logger.warning("No recent orders found")
         order_id = ""
     else:
-        href_elements = tree.xpath('//ul[@class="order_information_list"]//a')
-        order_id = href_elements[0].get('href')
+        href_elements = tree.xpath('//ul[@class="order-history_orders_content-body"]//a')
+        try:
+            order_id = href_elements[1].get('href')
+        except:
+            _logger.error('Not able to parse order url, returning empty order_id')
+            return ""
         _logger.info("Using recent order: %s", order_id)
 
     return order_id
@@ -112,7 +116,12 @@ def caviar_update_status(order):
         _logger.info("Successfully retrieved order_id html tree")
 
     xmlblob = tree.xpath('//div[@data-react-class="OrderStatus"]')
-    jsonblob = xmlblob[0].get('data-react-props')
+    try:
+        jsonblob = xmlblob[0].get('data-react-props')
+    except:
+        _logger.error("Not able to parse order information from html")
+        order_statusfriendly = TTSResponses.order_parse_error.value
+
     jsondata = json.loads(jsonblob)
 
     order_status = jsondata['initial_status']
