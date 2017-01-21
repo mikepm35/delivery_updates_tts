@@ -47,8 +47,12 @@ def get_status():
             # Determine status of the openOrder instance
             now = datetime.now()
             diff_hrs = get_time_diff(later_time=now, earlier_time=openOrder.lastupdate)
-            if openOrder.general_status == GeneralStatus.empty.value or openOrder.general_status == GeneralStatus.closed.value or diff_hrs > 2:
-                _logger.info("Update existing openOrder instance: %s, %s", openOrder.general_status, diff_hrs)
+            if (openOrder.general_status == GeneralStatus.empty.value or
+                openOrder.general_status == GeneralStatus.closed.value or
+                diff_hrs > 2 or not openOrder.order_id):
+
+                _logger.info("Update existing openOrder instance: %s, %s, %s", 
+                        openOrder.general_status, diff_hrs, openOrder.order_id)
 
                 username, password = get_service_credentials(service)
 

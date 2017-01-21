@@ -80,7 +80,12 @@ def caviar_get_order(order):
         return ""
 
     element_list = tree.xpath('//li[@class="order_information_list-item"]/text()')
-    recent_datestr = element_list[0]
+    try:
+        recent_datestr = element_list[0]
+    except:
+        _logger.warning('Not able to parse any order list items, returning empty order_id')
+        return ""
+        
     recent_datetime = datetime.strptime(recent_datestr, '%m/%d/%y %I:%M%p')
     _logger.debug('Most recent order datetime: %s', recent_datetime)
 
